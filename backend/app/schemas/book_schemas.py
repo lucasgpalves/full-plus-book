@@ -16,6 +16,7 @@ class BookCreateSchema(BaseModel):
 class BookUpdateSchema(BaseModel):
     name: str
     author:str
+    atual_pages: int
     pages: int
 
 class BookViewSchema(BaseModel):

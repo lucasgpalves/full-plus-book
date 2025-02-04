@@ -4,8 +4,9 @@ from fastapi import APIRouter
 from fastapi.exceptions import HTTPException
 
 from app.schemas.book_schemas import (
+    BookCreateSchema,
     BookSummarySchema,
-    BookViewSchema
+    BookViewSchema,
 )
 from app.services.book_service import BookService
 
@@ -23,10 +24,14 @@ async def all_books():
 
 @router.get('/{book_id}', response_model=BookViewSchema)
 async def by_id_book(book_id: int):
-    book = await service.get_by_id_book(book_id)
+    book = await service.get_book_by_id(book_id)
     if not book:
         raise HTTPException(
             status_code=404,
             detail='Book not found'
         )
     return book
+
+@router.post('/')
+async def create_book(book: BookCreateSchema):
+    pass
